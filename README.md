@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="zh-TW" style="overflow-y: scroll; overflow-x: hidden; height: auto; min-height: 100%;">
 <head>
     <meta charset="UTF-8">
