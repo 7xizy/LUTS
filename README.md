@@ -24,17 +24,17 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow: hidden; /* 徹底禁止全網頁上下與左右滑動 */
+            overflow-y: auto; /* 允許整個網頁上下滑動 */
         }
         ::-webkit-scrollbar {
-            width: 4px;
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
             background: #0f1115;
         }
         ::-webkit-scrollbar-thumb {
             background: #272a35;
-            border-radius: 2px;
+            border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #3f4456;
@@ -45,9 +45,9 @@
         }
     </style>
 </head>
-<body class="bg-[#08090c] text-gray-100 h-screen w-screen flex flex-col fixed inset-0">
+<body class="bg-[#08090c] text-gray-100 min-h-screen w-full flex flex-col">
 
-    <header class="bg-[#0d0f14] border-b border-[#1b1e25] px-6 py-2.5 flex items-center justify-between shrink-0 h-14 z-20">
+    <header class="bg-[#0d0f14] border-b border-[#1b1e25] px-6 py-2.5 flex items-center justify-between shrink-0 h-14 z-20 sticky top-0">
         <div class="flex items-center gap-3">
             <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-cyan-500/10">
                 <i class="fa-solid fa-play text-xs text-white pl-0.5"></i>
@@ -69,9 +69,9 @@
         </div>
     </header>
 
-    <main class="flex-grow flex overflow-hidden h-[calc(100vh-56px)] w-full">
+    <main class="flex-grow flex flex-col md:flex-row w-full">
         
-        <aside class="w-72 bg-[#0d0f14] border-r border-[#1b1e25] flex flex-col p-4 overflow-y-auto shrink-0 gap-5 h-full z-10">
+        <aside class="w-full md:w-72 bg-[#0d0f14] border-r border-[#1b1e25] flex flex-col p-4 shrink-0 gap-5 z-10">
             <div class="flex flex-col gap-2">
                 <div class="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-wider">
                     <i class="fa-solid fa-camera"></i>
@@ -105,15 +105,15 @@
                 </div>
             </div>
 
-            <div class="p-3 bg-[#13161c]/50 border border-[#222733]/50 rounded-xl text-[11px] text-gray-500 leading-relaxed flex flex-col gap-1.5 mt-auto">
+            <div class="p-3 bg-[#13161c]/50 border border-[#222733]/50 rounded-xl text-[11px] text-gray-500 leading-relaxed flex flex-col gap-1.5 md:mt-auto">
                 <p><strong class="text-amber-500">Sony S-Log3 Workflow</strong></p>
                 <p>左側畫面完美複製了原生 10-bit S-Log3/SGamut3.Cine 的低反差低飽和狀態，右側則為經由真實 3D 矩陣解調後的最終影調。</p>
             </div>
         </aside>
 
-        <section id="workspaceArea" class="flex-grow flex flex-col items-center justify-center p-4 transition-colors duration-300 relative no-select h-full overflow-hidden bg-[#1b1e25]">
+        <section id="workspaceArea" class="flex-grow flex flex-col items-center justify-center p-8 transition-colors duration-300 relative no-select min-h-[600px] bg-[#1b1e25]">
             
-            <div class="absolute top-6 flex bg-[#0d0f14]/90 backdrop-blur-md p-1 rounded-xl border border-[#222733]/80 shadow-2xl z-20">
+            <div class="mb-6 flex bg-[#0d0f14]/90 backdrop-blur-md p-1 rounded-xl border border-[#222733]/80 shadow-2xl z-20">
                 <button onclick="setCompareMode('split')" id="modeSplit" class="px-4 py-1.5 text-[11px] font-bold rounded-lg transition-all flex items-center gap-1.5 text-cyan-400 bg-cyan-500/10 border border-cyan-500/20">
                     <i class="fa-solid fa-columns"></i><span>左右即時對比</span>
                 </button>
@@ -125,12 +125,12 @@
                 </button>
             </div>
 
-            <div class="relative w-full h-full max-w-[96%] max-h-[85%] flex items-center justify-center">
+            <div class="relative w-full max-w-5xl aspect-video flex items-center justify-center">
                 <div class="relative w-full h-full rounded-xl overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] border border-black/40 bg-black flex items-center justify-center" id="canvasContainer">
                     <canvas id="previewCanvas" class="w-full h-full object-contain pointer-events-none"></canvas>
                     
                     <div id="splitBar" class="absolute top-0 bottom-0 w-[2px] bg-white/80 shadow-[0_0_10px_rgba(255,255,255,0.5)] cursor-ew-resize flex items-center justify-center z-10" style="left: 50%;">
-                        <div class="w-7 h-7 rounded-full bg-white text-slate-9演50 flex items-center justify-center shadow-2xl border border-gray-300 transform scale-90 opacity-80 group-hover:opacity-100 transition-opacity">
+                        <div class="w-7 h-7 rounded-full bg-white text-slate-950 flex items-center justify-center shadow-2xl border border-gray-300 transform scale-90 opacity-80 group-hover:opacity-100 transition-opacity">
                             <i class="fa-solid fa-arrows-left-right text-[10px]"></i>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
 
         </section>
 
-        <aside class="w-80 bg-[#0d0f14] border-l border-[#1b1e25] flex flex-col overflow-hidden shrink-0 h-full z-10">
+        <aside class="w-full md:w-80 bg-[#0d0f14] border-l border-[#1b1e25] flex flex-col shrink-0">
             <div class="p-4 border-b border-[#1b1e25] flex items-center justify-between bg-[#0a0b0e] shrink-0">
                 <div class="flex items-center gap-2 text-cyan-400 font-bold text-xs tracking-wider uppercase">
                     <i class="fa-solid fa-sliders"></i>
@@ -157,7 +157,7 @@
                 </button>
             </div>
 
-            <div class="flex-grow p-4 overflow-y-auto flex flex-col gap-5 bg-[#0d0f14]">
+            <div class="p-4 flex flex-col gap-5 bg-[#0d0f14]">
                 
                 <div class="flex flex-col gap-3.5">
                     <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest font-mono">1. Tone & Exposure</h4>
@@ -245,7 +245,6 @@
         const canvasContainer = document.getElementById('canvasContainer');
         const activePromptLabel = document.getElementById('activePromptLabel');
 
-        // 升級監視器解析度：採用超清晰 2K 影院底層 (2560x1440) 強化紋理細節與真實感
         canvas.width = 2560;
         canvas.height = 1440;
 
@@ -273,7 +272,6 @@
             document.getElementById('bgCustomColor').value = color;
         }
 
-        // 精準 S-Log3 數學編解碼
         function encodeSLog3(x) {
             return x >= 0.01125 ? (Math.log10((x + 0.01) / 1.01) * 0.4294415) + 0.615 : (x * 171.21029 + 95) / 1023;
         }
@@ -313,7 +311,7 @@
             bind3Way('md-r', 'midtones', 'r'); bind3Way('md-g', 'midtones', 'g'); bind3Way('md-b', 'midtones', 'b');
             bind3Way('hi-r', 'highlights', 'r'); bind3Way('hi-g', 'highlights', 'g'); bind3Way('hi-b', 'highlights', 'b');
 
-            const onDrag = (clientX) => {
+            const handleDrag = (clientX) => {
                 const rect = canvasContainer.getBoundingClientRect();
                 const x = clientX - rect.left;
                 splitRatio = Math.max(0, Math.min(1, x / rect.width));
@@ -323,10 +321,18 @@
 
             splitBar.addEventListener('mousedown', () => { isDraggingSplit = true; });
             window.addEventListener('mouseup', () => { isDraggingSplit = false; });
-            window.addEventListener('mousemove', (e) => { if (isDraggingSplit && compareMode === 'split') onDrag(e.clientX); });
+            window.addEventListener('mousemove', (e) => { if (isDraggingSplit && compareMode === 'split') handleDrag(e.clientX); });
+            
+            // 增加移動端觸控支援
+            splitBar.addEventListener('touchstart', () => { isDraggingSplit = true; });
+            window.addEventListener('touchend', () => { isDraggingSplit = false; });
+            window.addEventListener('touchmove', (e) => { 
+                if (isDraggingSplit && compareMode === 'split') {
+                    handleDrag(e.touches[0].clientX);
+                }
+            });
         }
 
-        // 寫實畫面渲染生成模組 (具備豐富雜訊膠鹽感、底片光學漸層)
         function generateFromPrompt() {
             let prompt = document.getElementById('promptInput').value.trim().toLowerCase();
             if (!prompt) prompt = "sunset wave";
@@ -334,7 +340,6 @@
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // 建立高階寫實底色與幾何光影
             if (prompt.includes('neon') || prompt.includes('cyberpunk')) {
                 drawRealisticCyberpunk();
             } else if (prompt.includes('forest') || prompt.includes('nature')) {
@@ -342,14 +347,13 @@
             } else if (prompt.includes('space') || prompt.includes('star')) {
                 drawRealisticSpace();
             } else {
-                drawRealisticSunset(); // 預設寫實落日海浪
+                drawRealisticSunset();
             }
 
-            // 疊加極細微「底片顆粒微米雜訊 (Film Grain)」，極大幅度增加真實感
             let rawImg = ctx.getImageData(0, 0, canvas.width, canvas.height);
             let rawData = rawImg.data;
             for (let i = 0; i < rawData.length; i += 4) {
-                let noise = (Math.random() - 0.5) * 7; // 輕微亮度雜訊
+                let noise = (Math.random() - 0.5) * 7;
                 rawData[i] = Math.min(255, Math.max(0, rawData[i] + noise));
                 rawData[i+1] = Math.min(255, Math.max(0, rawData[i+1] + noise));
                 rawData[i+2] = Math.min(255, Math.max(0, rawData[i+2] + noise));
@@ -357,7 +361,6 @@
             ctx.putImageData(rawImg, 0, 0);
             baseOriginalImage = rawImg;
 
-            // 核心轉換為 10-bit S-Log3 灰度特性
             let sLogData = ctx.createImageData(baseOriginalImage);
             sLogData.data.set(baseOriginalImage.data);
             let d = sLogData.data;
@@ -376,62 +379,51 @@
             render();
         }
 
-        // 寫實細緻繪製：夕陽巨浪
         function drawRealisticSunset() {
             let g = ctx.createLinearGradient(0, 0, 0, canvas.height);
             g.addColorStop(0, '#1a091f'); g.addColorStop(0.3, '#ea580c'); g.addColorStop(0.5, '#fef08a'); g.addColorStop(0.7, '#23120b'); g.addColorStop(1, '#090d16');
             ctx.fillStyle = g; ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // 太陽強光耀斑 (Flare)
             let sun = ctx.createRadialGradient(1600, 500, 0, 1600, 500, 400);
             sun.addColorStop(0, '#ffffff'); sun.addColorStop(0.1, '#fffbeb'); sun.addColorStop(0.4, 'rgba(249,115,22,0.3)'); sun.addColorStop(1, 'rgba(0,0,0,0)');
             ctx.fillStyle = sun; ctx.beginPath(); ctx.arc(1600, 500, 400, 0, Math.PI*2); ctx.fill();
 
-            // 海浪寫實波紋與折射曲線
             ctx.fillStyle = 'rgba(12, 18, 33, 0.93)';
             ctx.beginPath(); ctx.moveTo(0, 900);
             ctx.bezierCurveTo(600, 750, 1400, 1100, 2560, 850);
             ctx.lineTo(2560, 1440); ctx.lineTo(0, 1440); ctx.closePath(); ctx.fill();
 
-            // 海面高光反射
             let ref = ctx.createLinearGradient(1400, 0, 1800, 0);
             ref.addColorStop(0, 'rgba(254,240,138,0)'); ref.addColorStop(0.5, 'rgba(254,240,138,0.4)'); ref.addColorStop(1, 'rgba(254,240,138,0)');
             ctx.fillStyle = ref; ctx.fillRect(0, 880, 2560, 560);
         }
 
-        // 寫實細緻繪製：都市霓虹夜景
         function drawRealisticCyberpunk() {
             let g = ctx.createRadialGradient(1280, 720, 100, 1280, 720, 1200);
             g.addColorStop(0, '#131124'); g.addColorStop(1, '#030206');
             ctx.fillStyle = g; ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // 遠景薄霧樓群
             ctx.fillStyle = 'rgba(10, 8, 16, 0.85)';
             for(let i=0; i<15; i++) {
                 ctx.fillRect(i*200 - 50, 400 + Math.random()*300, 160, 1100);
             }
-            // 近景寫實結構
             ctx.fillStyle = '#050508';
             ctx.fillRect(400, 300, 350, 1140);
             ctx.fillRect(1600, 200, 400, 1240);
 
-            // 霓虹光暈與大氣散射效果
             drawBokeh(575, 450, 300, 'rgba(236, 72, 153, 0.2)');
             drawBokeh(1800, 500, 400, 'rgba(6, 182, 212, 0.25)');
         }
 
-        // 寫實細緻繪製：晨曦森林
         function drawRealisticForest() {
             let g = ctx.createLinearGradient(0, 0, 0, canvas.height);
             g.addColorStop(0, '#475569'); g.addColorStop(0.5, '#1e293b'); g.addColorStop(1, '#0f172a');
             ctx.fillStyle = g; ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // 耶穌光 (God Rays)
             let ray = ctx.createLinearGradient(400, 0, 2000, 1440);
             ray.addColorStop(0, 'rgba(255,255,255,0.18)'); ray.addColorStop(0.6, 'rgba(255,255,255,0.02)'); ray.addColorStop(1, 'rgba(0,0,0,0)');
             ctx.fillStyle = ray; ctx.beginPath(); ctx.moveTo(400,0); ctx.lineTo(800,0); ctx.lineTo(2400,1200); ctx.lineTo(1800,1440); ctx.closePath(); ctx.fill();
 
-            // 寫實剪影樹幹
             ctx.fillStyle = '#090d14';
             for(let i = 0; i < 6; i++) {
                 let w = 40 + Math.random()*50;
@@ -439,12 +431,10 @@
             }
         }
 
-        // 寫實細緻繪製：深空星雲
         function drawRealisticSpace() {
             ctx.fillStyle = '#020205'; ctx.fillRect(0, 0, canvas.width, canvas.height);
             drawBokeh(1280, 720, 800, 'rgba(99, 102, 241, 0.15)');
             drawBokeh(800, 500, 600, 'rgba(219, 39, 119, 0.12)');
-            // 隨機細小寫實星點
             for(let i=0; i<300; i++) {
                 ctx.fillStyle = `rgba(255,255,255, ${Math.random()})`;
                 ctx.fillRect(Math.random()*canvas.width, Math.random()*canvas.height, 2, 2);
@@ -457,7 +447,6 @@
             ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
         }
 
-        // 核心調色引擎渲染處理
         function render() {
             if (!sLog3BackupImage) return;
 
@@ -475,11 +464,9 @@
                 let g_lin = decodeSLog3(rawData[i+1] / 255);
                 let b_lin = decodeSLog3(rawData[i+2] / 255);
 
-                // 曝光
                 let f = Math.pow(2.0, exp);
                 let r = r_lin * f, g = g_lin * f, b = b_lin * f;
 
-                // 三向調色
                 let luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
                 let shW = Math.pow(Math.max(0, 1.0 - luma), 2);
                 let hiW = Math.pow(Math.max(0, luma), 2);
@@ -489,19 +476,15 @@
                 g += (config.shadows.g/200)*shW + (config.midtones.g/200)*mdW + (config.highlights.g/200)*hiW;
                 b += (config.shadows.b/200)*shW + (config.midtones.b/200)*mdW + (config.highlights.b/200)*hiW;
 
-                // 對比 (中心點 0.18)
                 r = Math.max(0, (r - 0.18) * con + 0.18);
                 g = Math.max(0, (g - 0.18) * con + 0.18);
                 b = Math.max(0, (b - 0.18) * con + 0.18);
 
-                // 色溫
                 r += (temp * -0.001); b += (temp * 0.0015);
 
-                // 飽和度
                 let nLuma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
                 r = nLuma + (r - nLuma) * sat; g = nLuma + (g - nLuma) * sat; b = nLuma + (b - nLuma) * sat;
 
-                // Gamma 2.2 轉回螢幕空間
                 targetData[i]   = Math.min(255, Math.max(0, Math.pow(r, 1 / 2.2) * 255));
                 targetData[i+1] = Math.min(255, Math.max(0, Math.pow(g, 1 / 2.2) * 255));
                 targetData[i+2] = Math.min(255, Math.max(0, Math.pow(b, 1 / 2.2) * 255));
